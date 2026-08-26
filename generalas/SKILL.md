@@ -1,6 +1,7 @@
 ---
 name: generalas
-description: Weboldal-generálási workflow — kész briefből N különböző kezdőoldal-koncepció készítése: irány-brainstorm, statikus HTML + Tailwind projekt, párhuzamos prototípus-építés. Akkor használd, ha a felhasználó a briefből weboldal-verziókat akar készíttetni. Triggerek: "/generalas", "generáljuk le az oldalt", "készítsük el az első verziókat", "jöhetnek a prototípusok".
+description: >-
+  Weboldal-generálási workflow — kész briefből N különböző kezdőoldal-koncepció készítése: irány-brainstorm, statikus HTML + Tailwind projekt, párhuzamos prototípus-építés. Akkor használd, ha a felhasználó a briefből weboldal-verziókat akar készíttetni. Triggerek: "/generalas", "generáljuk le az oldalt", "készítsük el az első verziókat", "jöhetnek a prototípusok".
 metadata:
   version: 1.1.0
 ---

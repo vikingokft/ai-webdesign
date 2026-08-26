@@ -1,6 +1,7 @@
 ---
 name: tervezes
-description: Weboldal-tervezési workflow — interjú, kutatás-rendszerezés, brand-kinyerés meglévő oldalból, a végén kész brief. Akkor használd, ha a felhasználó weboldalt tervez vagy meglévő oldal újratervezését készíti elő. Triggerek: "/tervezes", "tervezzük meg az oldalt", "készítsünk briefet", "kezdjük el a weboldal tervezését".
+description: >-
+  Weboldal-tervezési workflow — interjú, kutatás-rendszerezés, brand-kinyerés meglévő oldalból, a végén kész brief. Akkor használd, ha a felhasználó weboldalt tervez vagy meglévő oldal újratervezését készíti elő. Triggerek: "/tervezes", "tervezzük meg az oldalt", "készítsünk briefet", "kezdjük el a weboldal tervezését".
 metadata:
   version: 1.0.0
 ---

@@ -6,6 +6,7 @@ A Vikingo AI webdesign kurzus skilljei. Mindegyik egy önálló, Claude Code-ban
 |---|---|---|
 | **tervezes** | Kutatás és definiálás: interjú, meglévő oldal brand-kinyerése (színek, fontok, logó), a végén kész brief (`.webprojekt/brief.md`) | `/tervezes` |
 | **generalas** | A briefből N különböző kezdőoldal-koncepció: irány-brainstorm, statikus HTML + Tailwind projekt, párhuzamos prototípus-építés | `/generalas` |
+| **deploy-mappa** | Publikálásra szánt mappa (public/) összeállítása: csak az éles fájlok kerülnek ki, a munkaanyagok nem | `/deploy-mappa` |
 | **vikingo-seo-skill** | Elkészült oldal SEO + GEO + AEO alapozása: meta-tagek, Open Graph, schema.org, sitemap, robots.txt — gépi ellenőrzéssel | `/vikingo-seo-skill` |
 
 ## Telepítés
@@ -14,7 +15,7 @@ A Vikingo AI webdesign kurzus skilljei. Mindegyik egy önálló, Claude Code-ban
 
 ```bash
 git clone https://github.com/vikingokft/ai-webdesign.git /tmp/ai-webdesign
-cp -R /tmp/ai-webdesign/tervezes /tmp/ai-webdesign/generalas /tmp/ai-webdesign/vikingo-seo-skill ~/.claude/skills/
+cp -R /tmp/ai-webdesign/tervezes /tmp/ai-webdesign/generalas /tmp/ai-webdesign/deploy-mappa /tmp/ai-webdesign/vikingo-seo-skill ~/.claude/skills/
 rm -rf /tmp/ai-webdesign
 ```
 
@@ -27,7 +28,8 @@ Telepítés után új Claude Code munkamenetben a skillek `/névvel` hívhatók,
 1. `/tervezes` — interjú és brief (ügyfélmunkánál ez a közös megállapodás is)
 2. `/generalas` — koncepció-irányok és böngészhető prototípusok a briefből
 3. Irányválasztás, finomítás, aloldalak — a kurzus leckéi szerint
-4. `/vikingo-seo-skill` — amikor az oldal kész és éles domainen fut
+4. `/deploy-mappa` — élesítés előtt: az éles fájlok szétválasztása a munkaanyagoktól
+5. `/vikingo-seo-skill` — amikor az oldal kész és éles domainen fut
 
 ## Követelmények
 

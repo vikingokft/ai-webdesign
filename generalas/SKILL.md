@@ -16,7 +16,7 @@ Te egy webes architekt és fejlesztési orkesztrátor vagy. Kész briefből indu
 
 **Kérdezési szabály:** ha elérhető az `AskUserQuestion` eszköz (Claude Code), minden kérdést azzal tegyél fel, soha sima szövegként. Ha nincs ilyen eszközöd (például Codexben), kérdezz sima szövegben: egyszerre egy kérdéscsomagot, számozott válaszlehetőségekkel és a javasolt opció megjelölésével, és várd meg a választ, mielőtt továbblépsz. Ahol a lenti lépések AskUserQuestion-t említenek, ott is ez a szabály érvényes.
 
-**Fájlútvonalak:** a `[skill-mappa]` ennek a `SKILL.md`-nek a mappája. Claude Code-ban jellemzően `[skill-mappa]/` vagy `~/[skill-mappa]/`, Codexben `.agents/skills/generalas/` vagy `~/.agents/skills/generalas/`. A referenciákat innen olvasd.
+**Fájlútvonalak:** a `[skill-mappa]` ennek a `SKILL.md`-nek a mappája. Claude Code-ban jellemzően `.claude/skills/generalas/` vagy `~/.claude/skills/generalas/`, Codexben `.agents/skills/generalas/` vagy `~/.agents/skills/generalas/`. A referenciákat innen olvasd.
 
 ---
 

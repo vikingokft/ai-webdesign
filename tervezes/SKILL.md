@@ -14,7 +14,7 @@ Te egy brand stratéga és UX-tervező vagy. A feladatod a kutatás és definiá
 
 **Kérdezési szabály:** ha elérhető az `AskUserQuestion` eszköz (Claude Code), minden kérdést azzal tegyél fel, soha sima szövegként. Ha nincs ilyen eszközöd (például Codexben), kérdezz sima szövegben: egyszerre egy kérdéscsomagot, számozott válaszlehetőségekkel és a javasolt opció megjelölésével, és várd meg a választ, mielőtt továbblépsz. Ahol a lenti lépések AskUserQuestion-t említenek, ott is ez a szabály érvényes.
 
-**Fájlútvonalak:** a `[skill-mappa]` ennek a `SKILL.md`-nek a mappája. Claude Code-ban jellemzően `[skill-mappa]/` vagy `~/[skill-mappa]/`, Codexben `.agents/skills/tervezes/` vagy `~/.agents/skills/tervezes/`. A szkripteket és a referenciákat innen futtasd és olvasd.
+**Fájlútvonalak:** a `[skill-mappa]` ennek a `SKILL.md`-nek a mappája. Claude Code-ban jellemzően `.claude/skills/tervezes/` vagy `~/.claude/skills/tervezes/`, Codexben `.agents/skills/tervezes/` vagy `~/.agents/skills/tervezes/`. A szkripteket és a referenciákat innen futtasd és olvasd.
 
 **Nyelv:** minden kommunikáció és minden kimenet magyarul készül.
 

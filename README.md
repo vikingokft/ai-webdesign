@@ -38,8 +38,21 @@ Csak egy projekthez: a célmappa a projekted `.agents/skills/` mappája. Telepí
 
 **Különbségek Codexben:**
 - A kérdéseket a skill sima szövegben, számozott opciókkal teszi fel (a Claude Code-os kérdés-ablak helyett).
-- A `/generalas` által használt **frontend-design** skill az Anthropic Claude Code-pluginja. Codexben ezt külön kell bemásolni: a [plugin repójából](https://github.com/anthropics/claude-code/tree/main/plugins/frontend-design/skills/frontend-design) a `frontend-design` mappát tedd a `~/.agents/skills/` alá. Enélkül is lefut a generálás, de a design-réteg gyengébb lesz.
+- A frontend-design skillt Codexben is telepítsd (lásd lent), és `$frontend-design` néven hívható.
 - A generálás párhuzamos alügynökökkel építi a koncepciókat, ha a Codex-verziód ezt engedi. Ha nem, egymás után készülnek el (lassabb, de ugyanaz az eredmény).
+
+## A frontend-design skill (mindkét eszközhöz)
+
+A `/generalas` az Anthropic **frontend-design** skilljére épít: ettől lesz a generált oldal karakteres, nem sablonos. Nem a mi skillünk, és nem is Claude-függő: ugyanaz a fájl Claude Code-ban és Codexben is működik. Forrás: [anthropics/skills](https://github.com/anthropics/skills/tree/main/skills/frontend-design), Apache 2.0 licenc (a `LICENSE.txt` a mappában marad).
+
+```bash
+git clone --depth 1 https://github.com/anthropics/skills.git /tmp/anthropic-skills
+cp -R /tmp/anthropic-skills/skills/frontend-design ~/.claude/skills/
+cp -R /tmp/anthropic-skills/skills/frontend-design ~/.agents/skills/
+rm -rf /tmp/anthropic-skills
+```
+
+A két `cp` sorból azt futtasd, amelyik eszközt használod: `~/.claude/skills/` a Claude Code-é, `~/.agents/skills/` a Codexé. Ha Claude Code-ban már telepítetted a frontend-design plugint, ott ezt kihagyhatod. Ha a skill hiányzik, a generálás akkor is lefut, csak a design-réteg gyengébb lesz.
 
 ## A javasolt sorrend
 
@@ -52,6 +65,7 @@ Csak egy projekthez: a célmappa a projekted `.agents/skills/` mappája. Telepí
 ## Követelmények
 
 - [Claude Code](https://claude.com/claude-code) vagy [Codex](https://developers.openai.com/codex)
+- Az Anthropic frontend-design skillje (lásd fent)
 - Python 3 a segédszkriptekhez; a `tervezes` brand-kinyerőjéhez: `pip3 install requests beautifulsoup4`
 
 ---

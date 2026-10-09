@@ -13,7 +13,7 @@ Ezt a promptot használd minden sub-agenthez. Indítás előtt töltsd ki a hely
 ---
 
 ```
-ELŐSZÖR: Futtasd a /frontend-design parancsot a frontend design skill betöltéséhez.
+ELŐSZÖR: Töltsd be a frontend-design skillt (Claude Code: /frontend-design, Codex: $frontend-design). Ha nincs telepítve, haladj tovább enélkül.
 
 UTÁNA: Olvasd el a .webprojekt/brief.md fájlt a teljes brand briefért.
 ÉS: Olvasd el a .webprojekt/iranyok.json fájlt — KIZÁRÓLAG a(z) [N]. irányt ("[Irány neve]") valósítsd meg.
@@ -161,7 +161,9 @@ Ettől a prototípustól a felhasználónak közelebb kell hajolnia a képernyő
 
 Indítsd mind az N sub-agentet PÁRHUZAMOSAN, egyetlen üzenetben.
 
-**Modell:** Ezekhez a sub-agentekhez mindig `opus`-t használj. A design-minőség a prioritás.
+**Modell:** Claude Code-ban ezekhez a sub-agentekhez mindig `opus`-t használj, Codexben a legerősebb elérhető modellt. A design-minőség a prioritás.
+
+**Ha az eszközöd nem tud párhuzamos alügynököt indítani:** ugyanezt a sablont futtasd le irányonként, egymás után, a SKILL.md Futtatókörnyezet szakasza szerint.
 
 Minden sub-agenthez:
 - Töltsd ki: [N], [Irány neve], [slug], az irány leírása és [Vállalkozás neve]
@@ -171,7 +173,7 @@ Minden sub-agenthez:
 Példa:
 ```
 Indíts [N] sub-agentet párhuzamosan. Mindegyik a
-.claude/skills/generalas/references/subagent-utasitas.md sablonját kapja,
+[skill-mappa]/references/subagent-utasitas.md sablonját kapja,
 kitöltve a saját irányával a .webprojekt/iranyok.json-ból.
 
 1. irány: "A csendes galéria" → koncepcio-1-a-csendes-galeria.html

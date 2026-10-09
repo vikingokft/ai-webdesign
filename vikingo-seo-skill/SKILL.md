@@ -35,7 +35,7 @@ Ha 3 hónapon belül vagy, hagyd ki ezt a lépést, ne keress fölöslegesen.
   ```bash
   python3 [skill-mappa]/scripts/ellenorzes.py [oldalak mappája] --domain [domain, ha van]
   ```
-- Kérdezd meg (AskUserQuestion, EGY körben, max 3 kérdés), ami hiányzik és kell:
+- Kérdezd meg (AskUserQuestion, ha elérhető, egyébként sima szövegben; EGY körben, max 3 kérdés), ami hiányzik és kell:
   - **Végleges domain** (canonical, sitemap és og:url ehhez kötött — ha még nincs, a domain-függő elemeket jelöld TODO-kommenttel és vedd fel a javaslatok közé)
   - Hiányzó vállalkozás-adat, ha az oldalakból nem derült ki
 

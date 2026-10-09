@@ -17,7 +17,7 @@ Statikus webprojektből összeállítod a publikálásra szánt mappát. A cél:
 - Keresd meg a belépési pontot (`index.html` vagy amit a felhasználó mond) és a hozzá tartozó aloldalakat: kövesd a HTML-fájlok közti `href` linkeket.
 - Gyűjtsd ki az éles oldalak által hivatkozott ÖSSZES eszközt: `src`/`href` attribútumok (képek, CSS, JS, fontok, favicon, videók), CSS-en belüli `url(...)` hivatkozások.
 - Ami NEM kell: jegyzetek, briefek, `.webprojekt/`, prototípus-/koncepció-fájlok, eredeti (optimalizálatlan) képek, README, skillek, minden, amire az éles oldalak nem hivatkoznak.
-- Ha kétséges, hogy egy fájl kell-e, kérdezd meg a felhasználót (AskUserQuestion) — inkább kérdezz, mint hogy munkaanyag kerüljön ki a netre.
+- Ha kétséges, hogy egy fájl kell-e, kérdezd meg a felhasználót (AskUserQuestion, ha elérhető; egyébként sima szövegben) — inkább kérdezz, mint hogy munkaanyag kerüljön ki a netre.
 
 ### 2. A mappa összeállítása
 

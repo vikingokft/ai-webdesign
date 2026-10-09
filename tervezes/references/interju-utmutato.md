@@ -2,7 +2,7 @@
 
 A feladatod, hogy mindent megtudj, ami egy éles brand briefhez és oldaltérképhez kell. Stratéga vagy, nem kitöltendő űrlap — azt kérdezd, ami releváns, hagyd ki, ami nem, és kérdezz vissza a homályos válaszokra.
 
-**Eszköz-szabály:** Minden kérdést az `AskUserQuestion` eszközzel tegyél fel. Soha ne kérdezz sima szövegként.
+**Eszköz-szabály:** ha elérhető az `AskUserQuestion` eszköz (Claude Code), minden kérdést azzal tegyél fel, soha sima szövegként. Ha nincs (például Codexben), kérdezz sima szövegben, számozott válaszlehetőségekkel, és várd meg a választ.
 
 **Beszélgetési stílus:**
 - Beszélgetős és alkalmazkodó — arra kérdezz rá, amit a felhasználó mond, ne arra, ami a forgatókönyvben következne
@@ -31,7 +31,7 @@ Felkínálandó opciók:
 
 Kérd el a jelenlegi oldal URL-jét, majd futtasd a brand-kinyerést:
 ```bash
-python3 .claude/skills/tervezes/scripts/extract_brand.py [URL] -o .webprojekt/brand-extraction/
+python3 [skill-mappa]/scripts/extract_brand.py [URL] -o .webprojekt/brand-extraction/
 ```
 
 Olvasd be a `.webprojekt/brand-extraction/brand-identity.json` fájlt, és mutass összefoglalót:

@@ -3,7 +3,7 @@ name: generalas
 description: >-
   Weboldal-generálási workflow — kész briefből N különböző kezdőoldal-koncepció készítése: irány-brainstorm, statikus HTML + Tailwind projekt, párhuzamos prototípus-építés. Akkor használd, ha a felhasználó a briefből weboldal-verziókat akar készíttetni. Triggerek: "/generalas", "generáljuk le az oldalt", "készítsük el az első verziókat", "jöhetnek a prototípusok".
 metadata:
-  version: 1.1.0
+  version: 1.2.0
 ---
 
 # Generálás
@@ -12,9 +12,28 @@ Te egy webes architekt és fejlesztési orkesztrátor vagy. Kész briefből indu
 
 **A skill végére:** a projektmappában N különböző kezdőoldal-dizájn van, amelyeket a felhasználó az `index.html`-t böngészőben megnyitva végig tud nézni.
 
-**Előfeltétel:** olvasd be a `.webprojekt/brief.md` fájlt. Ha nem létezik, állj meg, és mondd: „Még nincs brief — futtasd előbb a `/tervezes` parancsot, az készíti el."
+**Előfeltétel:** olvasd be a `.webprojekt/brief.md` fájlt. Ha nem létezik, állj meg, és mondd: „Még nincs brief — futtasd előbb a `/tervezes` (Codexben `$tervezes`) parancsot, az készíti el."
 
-**Kérdezési szabály:** minden kérdést az `AskUserQuestion` eszközzel tegyél fel, soha sima szövegként.
+**Kérdezési szabály:** ha elérhető az `AskUserQuestion` eszköz (Claude Code), minden kérdést azzal tegyél fel, soha sima szövegként. Ha nincs ilyen eszközöd (például Codexben), kérdezz sima szövegben: egyszerre egy kérdéscsomagot, számozott válaszlehetőségekkel és a javasolt opció megjelölésével, és várd meg a választ, mielőtt továbblépsz. Ahol a lenti lépések AskUserQuestion-t említenek, ott is ez a szabály érvényes.
+
+**Fájlútvonalak:** a `[skill-mappa]` ennek a `SKILL.md`-nek a mappája. Claude Code-ban jellemzően `[skill-mappa]/` vagy `~/[skill-mappa]/`, Codexben `.agents/skills/generalas/` vagy `~/.agents/skills/generalas/`. A referenciákat innen olvasd.
+
+---
+
+## Futtatókörnyezet: Claude Code vagy Codex
+
+A skill mindkét eszközben fut. Ahol a kettő eltér, így járj el:
+
+| Elem | Claude Code | Codex (vagy más eszköz) |
+|------|-------------|-------------------------|
+| Kérdezés | `AskUserQuestion` | Sima szöveg számozott opciókkal; várd meg a választ |
+| Design skill | `/frontend-design` | `$frontend-design`, ha telepítve van |
+| Jóváhagyási kapu (1. fázis vége) | Plan Mode + `ExitPlanMode` | A `plan.md` összefoglalója, és kifejezett „mehet” kérése. Amíg nincs meg, ne állítsd fel a projektet |
+| Prototípusok (3. fázis) | Párhuzamos sub-agentek, `opus` modellel | Párhuzamos alügynökök, ha az eszköz tudja: irányonként egy, a legerősebb elérhető modellel (Codexben ezt kifejezetten kérni kell). Ha nem tudja: egymás után, irányonként külön menetben |
+
+**Ha a frontend-design skill nincs telepítve:** szólj egyszer a felhasználónak (telepítés: a skillcsomag README-je). Ha enélkül is tovább akar menni, dolgozz a `subagent-utasitas.md` minőségi mércéje szerint.
+
+**Ha egymás után építed a prototípusokat:** minden irány előtt olvasd újra a briefet, az adott irányt és a sub-agent sablont, és csak a saját `koncepcio-[N]-[slug].html` fájlján dolgozz. Ne vidd át az előző irány megoldásait: a cél az, hogy az irányok tényleg különbözzenek.
 
 **Nyelv:** minden kommunikáció magyarul történik, és a generált weboldal-szövegek is magyarul készülnek (hacsak a brief mást nem mond).
 
@@ -25,7 +44,7 @@ Te egy webes architekt és fejlesztési orkesztrátor vagy. Kész briefből indu
 ```
 1. fázis: Koncepció irányok (Plan Mode)
     → .webprojekt/iranyok.json + plan.md megírása
-    → ExitPlanMode a jóváhagyáshoz
+    → Jóváhagyás (Claude Code-ban ExitPlanMode)
     ↓ JÓVÁHAGYÁS
 2. fázis: Statikus projekt felállítása
     → Projektstruktúra, git init + commit
@@ -42,15 +61,15 @@ Te egy webes architekt és fejlesztési orkesztrátor vagy. Kész briefből indu
 
 | Fázis | Olvasd el |
 |-------|-----------|
-| 1 — Irányok | `.claude/skills/generalas/references/koncepcio-brainstorm.md` |
-| 2 — Projekt | `.claude/skills/generalas/references/statikus-setup.md` |
-| 3 — Sub-agentek | `.claude/skills/generalas/references/subagent-utasitas.md` |
+| 1 — Irányok | `[skill-mappa]/references/koncepcio-brainstorm.md` |
+| 2 — Projekt | `[skill-mappa]/references/statikus-setup.md` |
+| 3 — Sub-agentek | `[skill-mappa]/references/subagent-utasitas.md` |
 
 **Állapotkövetés:** `.webprojekt/state.json`. A `/tervezes` skill `brief_complete` fázissal adja át. A további fázisok:
 
 | Érték | Mikor íródik | Folytatási teendő |
 |-------|-------------|-------------------|
-| `directions_complete` | Irányok jóváhagyva, iranyok.json megírva | Ugrás az ExitPlanMode áttekintéshez |
+| `directions_complete` | Irányok jóváhagyva, iranyok.json megírva | Ugrás a jóváhagyási lépéshez (5. lépés) |
 | `scaffold_complete` | Projekt felállítva, git commit kész | Ugrás a 3. fázisra |
 | `prototypes_complete` | Minden prototípus kész, navigátor megírva | Ugrás a 4. fázisra |
 
@@ -64,7 +83,7 @@ Induláskor ellenőrizd a state-et — ha egy későbbi fázisnál tart, AskUser
 
 ### 1. lépés: Design skill betöltése
 
-Futtasd a `/frontend-design` parancsot a frontend design skill betöltéséhez. Az elveit alkalmazd végig, különösen az irányok kidolgozásánál.
+Töltsd be a frontend-design skillt (Claude Code: `/frontend-design`, Codex: `$frontend-design`; lásd Futtatókörnyezet). Az elveit alkalmazd végig, különösen az irányok kidolgozásánál.
 
 ### 2. lépés: Az irányok számának megkérdezése
 
@@ -76,7 +95,7 @@ Alapértelmezés: 3.
 
 ### 3. lépés: Brainstorm
 
-Olvasd el a `.claude/skills/generalas/references/koncepcio-brainstorm.md` fájlt, és dolgozz ki pontosan N irányt a brief alapján. Mutasd be őket a felhasználónak, mielőtt bármit építenél. Ha cserét vagy módosítást kér, dolgozd át.
+Olvasd el a `[skill-mappa]/references/koncepcio-brainstorm.md` fájlt, és dolgozz ki pontosan N irányt a brief alapján. Mutasd be őket a felhasználónak, mielőtt bármit építenél. Ha cserét vagy módosítást kér, dolgozd át.
 
 ### 4. lépés: Fájlok írása
 
@@ -106,9 +125,9 @@ onnan minden koncepcióra át tudsz kattintani:
 [Lista: koncepcio-N-nev.html]
 ```
 
-### 5. lépés: ExitPlanMode
+### 5. lépés: Jóváhagyás (ExitPlanMode)
 
-Hívd meg az ExitPlanMode-ot a terv összefoglalójával. Ha a felhasználó módosítást kér, frissítsd az `iranyok.json`-t és a `plan.md`-t, majd lépj ki újra a plan módból.
+Claude Code-ban hívd meg az ExitPlanMode-ot a terv összefoglalójával. Más eszközben (például Codexben) mutasd be a `plan.md` összefoglalóját, és kérj kifejezett jóváhagyást. Ha a felhasználó módosítást kér, frissítsd az `iranyok.json`-t és a `plan.md`-t, majd kérj újra jóváhagyást.
 
 ---
 
@@ -116,11 +135,11 @@ Hívd meg az ExitPlanMode-ot a terv összefoglalójával. Ha a felhasználó mó
 
 ### 1. lépés: Design skill újratöltése
 
-**Futtasd most újra a `/frontend-design` parancsot.** Ez frissen tölti be a design elveket a projekt-felállítás és a sub-agent orkesztráció fázisaihoz. Ne hagyd ki.
+**Töltsd be most újra a frontend-design skillt.** Ez frissen tölti be a design elveket a projekt-felállítás és a sub-agent orkesztráció fázisaihoz. Ne hagyd ki.
 
 ### 2. lépés: A projekt felállítása
 
-Olvasd el a `.claude/skills/generalas/references/statikus-setup.md` fájlt, és pontosan kövesd: projektstruktúra, közös head-sablon előkészítése, git init + első commit.
+Olvasd el a `[skill-mappa]/references/statikus-setup.md` fájlt, és pontosan kövesd: projektstruktúra, közös head-sablon előkészítése, git init + első commit.
 
 **Redesign esetén** (ellenőrizd az `is_redesign` mezőt): a képeknek már az `images/redesign/` mappában kell lenniük (a `/tervezes` töltötte le őket, manifest: `.webprojekt/homepage-images.json`). Ha a manifest hiányzik, jelezd a felhasználónak, hogy a `/tervezes` skill képletöltő lépését érdemes pótolni, de placeholder képekkel is tovább tudsz menni.
 
@@ -132,9 +151,9 @@ Olvasd el a `.claude/skills/generalas/references/statikus-setup.md` fájlt, és 
 
 ## 3. fázis: Prototípus sub-agentek
 
-Olvasd el a `.claude/skills/generalas/references/subagent-utasitas.md` fájlt. Ez tartalmazza a pontos sub-agent prompt sablont.
+Olvasd el a `[skill-mappa]/references/subagent-utasitas.md` fájlt. Ez tartalmazza a pontos sub-agent prompt sablont.
 
-Indíts N sub-agentet **párhuzamosan** — irányonként egyet, mindegyik `opus` modellel. NE indítsd őket egymás után.
+Indíts N sub-agentet **párhuzamosan**, irányonként egyet: Claude Code-ban mindegyik `opus` modellel, Codexben a legerősebb elérhető modellel. Ha az eszközöd nem tud párhuzamos alügynököt indítani, építsd meg az irányokat egymás után a Futtatókörnyezet szakasz szerint.
 
 Amikor minden sub-agent végzett:
 
